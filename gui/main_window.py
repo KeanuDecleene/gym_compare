@@ -3,7 +3,9 @@ from PyQt6.QtCore import Qt
 import requests
 
 class GymCompare(QWidget):
+    """Main window for the Gym Compare application."""
     def __init__(self):
+        """Initialize the main window."""
         super().__init__()
         self.setWindowTitle("Gym Compare")
         self.setMinimumSize(960, 540)
