@@ -12,13 +12,16 @@ class GymCompare(QWidget):
 
 
     def mousePressEvent(self, event):
-        """Enable window dragging."""
+        """Enable window dragging hovering over header."""
         if event.button() == Qt.MouseButton.LeftButton:
-            self.drag_pos = event.globalPosition()
+            if self.header.underMouse():
+                self.drag_pos = event.globalPosition()
+            else:
+                self.drag_pos = None
 
     def mouseMoveEvent(self, event):
         """Enable window dragging."""
-        if event.buttons() == Qt.MouseButton.LeftButton:
+        if self.drag_pos and event.buttons() & Qt.MouseButton.LeftButton:
             self.move(self.pos() + (event.globalPosition() - self.drag_pos).toPoint())
             self.drag_pos = event.globalPosition()
 
