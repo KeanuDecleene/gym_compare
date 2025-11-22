@@ -25,15 +25,13 @@ class GymCompareSetup:
         header_layout.setSpacing(5)
         self.parent.header.setLayout(header_layout)
 
-        # Title label
+        #title label
         self.parent.title_label = QLabel("Gym Compare")
         self.parent.title_label.setObjectName("headerTitle")
         header_layout.addWidget(self.parent.title_label)
-
-        # Stretch pushes button to the right
         header_layout.addStretch()
 
-        # Close button
+        #close button
         self.parent.close_btn = QPushButton("X")
         self.parent.close_btn.setObjectName("headerClose")
         self.parent.close_btn.setFixedSize(25, 25)
@@ -47,7 +45,7 @@ class GymCompareSetup:
         main_layout.setSpacing(0)
         main_layout.addWidget(self.parent.header)
 
-        # Example content placeholder
-        main_layout.addWidget(QLabel("Your app content goes here."))
+        #example content placeholder
+        main_layout.addWidget(QLabel(""))
 
         self.parent.setLayout(main_layout)
