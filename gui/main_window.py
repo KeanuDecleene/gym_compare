@@ -1,5 +1,6 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton
 from PyQt6.QtCore import Qt
+from gui.main_window_setup import GymCompareSetup
 import requests
 
 class GymCompare(QWidget):
@@ -7,17 +8,23 @@ class GymCompare(QWidget):
     def __init__(self):
         """Initialize the main window."""
         super().__init__()
-        self.setWindowTitle("Gym Compare")
-        self.setMinimumSize(960, 540)
+        self.setup = GymCompareSetup(self)
 
-        layout = QVBoxLayout()
 
-        self.setLayout(layout)
+    def mousePressEvent(self, event):
+        """Enable window dragging."""
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.drag_pos = event.globalPosition()
+
+    def mouseMoveEvent(self, event):
+        """Enable window dragging."""
+        if event.buttons() == Qt.MouseButton.LeftButton:
+            self.move(self.pos() + (event.globalPosition() - self.drag_pos).toPoint())
+            self.drag_pos = event.globalPosition()
 
     def find_gyms(self):
         """Function to handle gym search."""
         
-
     def get_gyms_near_location(self, location):
         """Function to fetch gyms near a location."""
         

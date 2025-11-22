@@ -1,0 +1,23 @@
+/*header background */
+QWidget#header {
+    background-color: black;
+}
+
+/*title label inside header */
+QLabel#headerTitle {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/*close button inside header */
+QPushButton#headerClose {
+    background-color: black;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+QPushButton#headerClose:hover {
+    background-color: red;
+}
