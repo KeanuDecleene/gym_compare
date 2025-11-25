@@ -1,6 +1,14 @@
-/* header bar */
+/* header bar with gradient */
 #header {
-  background-color: #2c2c2c;
+  background: qlineargradient(
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 1,
+    stop: 0 #3a3a3a,
+    stop: 1 #2c2c2c
+  );
+  border-bottom: 1px solid #1e1e1e;
 }
 
 /* header */
