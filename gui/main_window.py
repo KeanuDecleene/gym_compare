@@ -1,9 +1,9 @@
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtCore import Qt
 from gui.main_window_setup import GymCompareSetup
 import requests
 
-class GymCompare(QWidget):
+class GymCompare(QMainWindow):
     """Main window for the Gym Compare application."""
     def __init__(self):
         """Initialize the main window."""

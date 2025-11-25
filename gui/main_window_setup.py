@@ -1,51 +1,67 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout,
+    QLabel, QPushButton, QStyle
+)
+from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import QIcon
+
 
 class GymCompareSetup:
     """Handles creating all widgets and layouts for GymCompare."""
-    def __init__(self, parent: QWidget):
+
+    def __init__(self, parent):
         self.parent = parent
         self.setup_window()
         self.setup_header()
         self.setup_layout()
 
     def setup_window(self):
-        """Set up the main window properties."""
+        """Main window properties."""
         self.parent.setWindowFlag(Qt.WindowType.FramelessWindowHint)
         self.parent.setMinimumSize(960, 540)
 
     def setup_header(self):
-        """Set up the header."""
-        self.parent.header = QWidget()
-        self.parent.header.setObjectName("header")
-        self.parent.header.setFixedHeight(30)
+        """Create the custom title bar."""
+        header = QWidget()
+        header.setObjectName("header")
+        header.setFixedHeight(40)
 
-        header_layout = QHBoxLayout()
-        header_layout.setContentsMargins(10, 0, 10, 0)
-        header_layout.setSpacing(5)
-        self.parent.header.setLayout(header_layout)
+        layout = QHBoxLayout(header)
+        layout.setContentsMargins(10, 0, 10, 0)
+        layout.setSpacing(8)
 
-        #title label
-        self.parent.title_label = QLabel("Gym Compare")
-        self.parent.title_label.setObjectName("headerTitle")
-        header_layout.addWidget(self.parent.title_label)
-        header_layout.addStretch()
+        #title
+        title = QLabel("GYM COMPARE")
+        title.setObjectName("headerTitle")
+        layout.addWidget(title)
+        layout.addStretch()
 
         #close button
-        self.parent.close_btn = QPushButton("X")
-        self.parent.close_btn.setObjectName("headerClose")
-        self.parent.close_btn.setFixedSize(25, 25)
-        self.parent.close_btn.clicked.connect(self.parent.close)
-        header_layout.addWidget(self.parent.close_btn)
+        close_btn = QPushButton()
+        close_btn.setObjectName("headerClose")
+        close_btn.setFixedSize(28, 28)
+        close_btn.setIcon(QIcon("gui/icons/close_button.png"))
+        
+        close_btn.setIconSize(QSize(15, 15))
+        close_btn.clicked.connect(self.parent.close)
+
+        layout.addWidget(close_btn)
+
+        self.parent.header = header
 
     def setup_layout(self):
-        """Set up the main layout of the window."""
-        main_layout = QVBoxLayout()
-        main_layout.setContentsMargins(0, 0, 0, 0)
-        main_layout.setSpacing(0)
-        main_layout.addWidget(self.parent.header)
+        """Attach header + main content to the QMainWindow."""
+        root = QWidget()
+        root_layout = QVBoxLayout(root)
+        root_layout.setContentsMargins(0, 0, 0, 0)
+        root_layout.setSpacing(0)
 
-        #example content placeholder
-        main_layout.addWidget(QLabel(""))
+        #header
+        root_layout.addWidget(self.parent.header)
 
-        self.parent.setLayout(main_layout)
+        #main content
+        content = QWidget()
+        content.setObjectName("mainContent")
+        root_layout.addWidget(content)
+
+        self.parent.setCentralWidget(root)

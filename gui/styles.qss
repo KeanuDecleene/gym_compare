@@ -1,23 +1,31 @@
-/*header background */
-QWidget#header {
-    background-color: black;
+/* header bar */
+#header {
+  background-color: #2c2c2c;
 }
 
-/*title label inside header */
-QLabel#headerTitle {
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
+/* header */
+#headerTitle {
+  color: #e6e6e6;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
-/*close button inside header */
-QPushButton#headerClose {
-    background-color: black;
-    color: white;
-    border: none;
-    font-weight: bold;
+/* closebtn */
+#headerClose {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
 }
 
-QPushButton#headerClose:hover {
-    background-color: red;
+#headerClose:hover {
+  background-color: #ff4a4a;
+}
+
+#headerClose:pressed {
+  background-color: #d63838;
+}
+
+#mainContent {
+  background-color: #3a3a3a;
 }
