@@ -27,7 +27,8 @@ class GymCompare(QMainWindow):
 
     def find_gyms(self):
         """Function to handle gym search."""
-        
-    def get_gyms_near_location(self, location):
-        """Function to fetch gyms near a location."""
+
+    def search(self, input_address):
+        """Handle search button click."""
+
         

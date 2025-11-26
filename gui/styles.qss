@@ -11,10 +11,15 @@
   border-bottom: 1px solid #1e1e1e;
 }
 
+#rootWidget {
+  background-color: #3a3a3a;
+}
+
 /* header */
 #headerTitle {
   color: #e6e6e6;
   font-size: 15px;
+  font-family: Georgia;
   font-weight: bold;
   letter-spacing: 2px;
 }
@@ -32,6 +37,27 @@
 
 #headerClose:pressed {
   background-color: #d63838;
+}
+
+#addressBarContainer {
+  background-color: #3a3a3a;
+}
+
+#searchButton {
+  background-color: #5a5a5a;
+  color: #e6e6e6;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+#searchButton:hover {
+  background-color: #707070;
+}
+
+#searchButton:pressed {
+  background-color: #4a4a4a;
 }
 
 #mainContent {
