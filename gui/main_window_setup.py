@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import (
     QLabel, QPushButton, QLineEdit, QListWidget
 )
 from PyQt6.QtCore import Qt, QSize
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPixmap
 
 
 class GymCompareSetup:
@@ -48,6 +48,13 @@ class GymCompareSetup:
         layout = QHBoxLayout(header)
         layout.setContentsMargins(10, 0, 10, 0)
         layout.setSpacing(8)
+
+        icon = QLabel()
+        pix = QPixmap("gui/icons/gym_compare.png")
+        pix = pix.scaled(24, 24, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+        icon.setPixmap(pix)
+        icon.setFixedSize(24, 24)
+        layout.addWidget(icon)
 
         #title
         title = QLabel("GYM COMPARE")
