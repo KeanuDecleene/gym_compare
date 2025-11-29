@@ -14,6 +14,7 @@ class GymCompareSetup:
         self.setup_header()
         self.setup_address_bar()
         self.setup_list_box()
+        self.setup_bottom_buttons()
         self.setup_layout()
 
 
@@ -35,6 +36,8 @@ class GymCompareSetup:
         root_layout.addWidget(self.parent.header)
         root_layout.addWidget(self.parent.address_widget)
         root_layout.addWidget(self.parent.gym_list_container)
+        root_layout.addWidget(self.parent.bottom_buttons)
+
 
         self.parent.setCentralWidget(root)
 
@@ -49,6 +52,7 @@ class GymCompareSetup:
         layout.setContentsMargins(10, 0, 10, 0)
         layout.setSpacing(8)
 
+        #icon
         icon = QLabel()
         pix = QPixmap("gui/icons/gym_compare.png")
         pix = pix.scaled(29, 29, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
@@ -62,7 +66,7 @@ class GymCompareSetup:
         layout.addWidget(title)
         layout.addStretch()
 
-        #close button
+        #close app
         close_btn = QPushButton()
         close_btn.setObjectName("headerClose")
         close_btn.setFixedSize(28, 28)
@@ -82,7 +86,7 @@ class GymCompareSetup:
         address_container.setObjectName("addressBarContainer")
         address_container.setFixedHeight(50)
 
-        #set layout for container
+        #layout 
         layout = QHBoxLayout(address_container)
         layout.setContentsMargins(10, 0, 10, 0)
         
@@ -92,7 +96,7 @@ class GymCompareSetup:
         address_text_box.setPlaceholderText("Enter Address...")
         address_text_box.setFixedHeight(32)    
 
-        #search button
+        #search 
         search_btn = QPushButton("Search")
         search_btn.setObjectName("searchButton")
         search_btn.setFixedHeight(32) 
@@ -112,14 +116,40 @@ class GymCompareSetup:
 
         gym_list_container = QWidget()
         gym_list_container_layout = QVBoxLayout(gym_list_container)
-        gym_list_container_layout.setContentsMargins(40, 20, 40, 50)
+        gym_list_container_layout.setContentsMargins(40, 5, 40, 5)
         gym_list_container_layout.addWidget(gym_list)
 
         self.parent.gym_list_box = gym_list
         self.parent.gym_list_container = gym_list_container
 
     def setup_bottom_buttons(self):
-        """Create bottom buttons for additional functionality."""
-        pass
+        """Bottom buttons for additional functionality."""
+        bottom_buttons = QWidget()
+        bottom_buttons.setObjectName("bottomButtonsContainer")
+        
+
+        layout = QHBoxLayout(bottom_buttons)
+        layout.setSpacing(20)
+    
+        #export
+        export_btn = QPushButton("Export")
+        export_btn.setObjectName("exportButton")
+        export_btn.setFixedWidth(150)
+        
+        view_btn = QPushButton("View on Map")
+        view_btn.setObjectName("viewMapButton")
+        view_btn.setFixedWidth(150)
+
+        layout.addWidget(export_btn)
+        layout.addWidget(view_btn)
+
+        clear_btn = QPushButton("Clear")
+        clear_btn.setObjectName("clearButton")
+        layout.addStretch()
+        
+        layout.addWidget(clear_btn)
+
+        self.parent.bottom_buttons = bottom_buttons
+
 
 

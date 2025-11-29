@@ -43,6 +43,14 @@
   background-color: #3a3a3a;
 }
 
+#addressTextBox {
+  background-color: #5a5a5a;
+  color: #e6e6e6;
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+}
+
 #searchButton {
   background-color: #5a5a5a;
   color: #e6e6e6;
@@ -60,6 +68,53 @@
   background-color: #4a4a4a;
 }
 
-#mainContent {
-  background-color: #3a3a3a;
+#exportButton {
+  background-color: #5a5a5a;
+  color: #e6e6e6;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+#exportButton:hover {
+  background-color: #707070;
+}
+
+#exportButton:pressed {
+  background-color: #4a4a4a;
+}
+
+#viewMapButton {
+  background-color: #5a5a5a;
+  color: #e6e6e6;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+#viewMapButton:hover {
+  background-color: #707070;
+}
+
+#viewMapButton:pressed {
+  background-color: #4a4a4a;
+}
+
+#clearButton {
+  background-color: #5a5a5a;
+  color: #e6e6e6;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+#clearButton:hover {
+  background-color: #707070;
+}
+
+#clearButton:pressed {
+  background-color: #4a4a4a;
 }
