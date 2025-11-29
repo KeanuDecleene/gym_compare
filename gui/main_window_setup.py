@@ -51,9 +51,9 @@ class GymCompareSetup:
 
         icon = QLabel()
         pix = QPixmap("gui/icons/gym_compare.png")
-        pix = pix.scaled(24, 24, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
+        pix = pix.scaled(29, 29, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
         icon.setPixmap(pix)
-        icon.setFixedSize(24, 24)
+        icon.setFixedSize(29, 29)
         layout.addWidget(icon)
 
         #title
@@ -117,5 +117,9 @@ class GymCompareSetup:
 
         self.parent.gym_list_box = gym_list
         self.parent.gym_list_container = gym_list_container
+
+    def setup_bottom_buttons(self):
+        """Create bottom buttons for additional functionality."""
+        pass
 
 

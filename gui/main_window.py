@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtWidgets import QMainWindow, QDialog
 from PyQt6.QtCore import Qt
 from gui.main_window_setup import GymCompareSetup
 import requests
@@ -30,5 +30,10 @@ class GymCompare(QMainWindow):
 
     def search(self, input_address):
         """Handle search button click."""
+        if input_address == "":
+            print("Please enter an address.")
+            #TODO implement popup Qdialog on incorrect inputs
+            return
+        print(f"Searching for gyms near: {input_address}")
 
         
