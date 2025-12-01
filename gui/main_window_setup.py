@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout,
-    QLabel, QPushButton, QLineEdit, QListWidget
+    QLabel, QPushButton, QLineEdit, QListWidget, QListWidgetItem
 )
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap
@@ -9,6 +9,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 class GymCompareSetup:
     """Handles creating all widgets and layouts for GymCompare."""
     def __init__(self, parent):
+        """Initialize and set up the main window components."""
         self.parent = parent
         self.setup_window()
         self.setup_header()
@@ -114,6 +115,11 @@ class GymCompareSetup:
         gym_list = QListWidget()
         gym_list.setObjectName("gymListBox")
 
+        placeholder_text = QListWidgetItem("No gyms to display. Please enter an address and click 'Search'.")
+        placeholder_item = QListWidgetItem(placeholder_text)
+        placeholder_item.setFlags(Qt.ItemFlag.NoItemFlags)
+        gym_list.addItem(placeholder_item)
+
         gym_list_container = QWidget()
         gym_list_container_layout = QVBoxLayout(gym_list_container)
         gym_list_container_layout.setContentsMargins(40, 5, 40, 5)
@@ -121,12 +127,12 @@ class GymCompareSetup:
 
         self.parent.gym_list_box = gym_list
         self.parent.gym_list_container = gym_list_container
+        self.parent.placeholder_text = placeholder_text
 
     def setup_bottom_buttons(self):
         """Bottom buttons for additional functionality."""
         bottom_buttons = QWidget()
         bottom_buttons.setObjectName("bottomButtonsContainer")
-        
 
         layout = QHBoxLayout(bottom_buttons)
         layout.setSpacing(20)
@@ -136,6 +142,7 @@ class GymCompareSetup:
         export_btn.setObjectName("exportButton")
         export_btn.setFixedWidth(150)
         
+        #view on map
         view_btn = QPushButton("View on Map")
         view_btn.setObjectName("viewMapButton")
         view_btn.setFixedWidth(150)
@@ -143,9 +150,11 @@ class GymCompareSetup:
         layout.addWidget(export_btn)
         layout.addWidget(view_btn)
 
+        #clear
         clear_btn = QPushButton("Clear")
         clear_btn.setObjectName("clearButton")
         layout.addStretch()
+        clear_btn.clicked.connect(self.parent.clear)
         
         layout.addWidget(clear_btn)
 

@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMainWindow, QDialog
+from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem
 from PyQt6.QtCore import Qt
 from gui.main_window_setup import GymCompareSetup
 import requests
@@ -42,6 +42,18 @@ class GymCompare(QMainWindow):
             print("Please enter an address.")
             #TODO implement popup Qdialog on incorrect inputs
             return
+        
+        self.gym_list_box.addItem("Please enter a valid address.")
         print(f"Searching for gyms near: {input_address}")
+
+    def clear(self):
+        """Clear the gym list, restore placeholder text."""
+        self.gym_list_box.clear()
+
+    
+        item = QListWidgetItem(self.placeholder_text)
+        item.setFlags(Qt.ItemFlag.NoItemFlags)
+        self.gym_list_box.addItem(item)
+
 
         

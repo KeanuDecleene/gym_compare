@@ -24,19 +24,12 @@
   letter-spacing: 2px;
 }
 
-/* closebtn */
-#headerClose {
-  background: transparent;
+#gymListBox {
+  background-color: #646464;
+  color: #e6e6e6;
   border: none;
   border-radius: 6px;
-}
-
-#headerClose:hover {
-  background-color: #ff4a4a;
-}
-
-#headerClose:pressed {
-  background-color: #d63838;
+  padding: 8px;
 }
 
 #addressBarContainer {
@@ -117,4 +110,18 @@
 
 #clearButton:pressed {
   background-color: #4a4a4a;
+}
+
+#headerClose {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+}
+
+#headerClose:hover {
+  background-color: #ff4a4a;
+}
+
+#headerClose:pressed {
+  background-color: #d63838;
 }
