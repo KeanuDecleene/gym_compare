@@ -8,6 +8,8 @@ from PyQt6.QtGui import QIcon, QPixmap
 
 class GymCompareSetup:
     """Handles creating all widgets and layouts for GymCompare."""
+
+
     def __init__(self, parent):
         """Initialize and set up the main window components."""
         self.parent = parent
@@ -33,7 +35,7 @@ class GymCompareSetup:
         root_layout.setContentsMargins(0, 0, 0, 0)
         root_layout.setSpacing(0)
 
-        #add widgets to root layout
+        #add all widgets to root layout
         root_layout.addWidget(self.parent.header)
         root_layout.addWidget(self.parent.address_widget)
         root_layout.addWidget(self.parent.gym_list_container)
@@ -44,11 +46,10 @@ class GymCompareSetup:
 
 
     def setup_header(self):
-        """Create the custom title bar."""
+        """Create the custom header"""
         header = QWidget()
         header.setObjectName("header")
         header.setFixedHeight(40)
-
         layout = QHBoxLayout(header)
         layout.setContentsMargins(10, 0, 10, 0)
         layout.setSpacing(8)
@@ -67,15 +68,13 @@ class GymCompareSetup:
         layout.addWidget(title)
         layout.addStretch()
 
-        #close app
+        #close app btn
         close_btn = QPushButton()
         close_btn.setObjectName("headerClose")
         close_btn.setFixedSize(28, 28)
         close_btn.setIcon(QIcon("gui/icons/close_button.png"))
-        
         close_btn.setIconSize(QSize(15, 15))
         close_btn.clicked.connect(self.parent.close)
-
         layout.addWidget(close_btn)
 
         self.parent.header = header
@@ -110,24 +109,29 @@ class GymCompareSetup:
         self.parent.address_bar = address_text_box
         self.parent.search_btn = search_btn
         
+
     def setup_list_box(self):
         """Create the list box for displaying gyms."""
         gym_list = QListWidget()
         gym_list.setObjectName("gymListBox")
 
-        placeholder_text = QListWidgetItem("No gyms to display. Please enter an address and click 'Search'.")
+        #placeholder
+        placeholder_text = QListWidgetItem("No gyms to show. Please enter an address and click 'Search'.")
         placeholder_item = QListWidgetItem(placeholder_text)
         placeholder_item.setFlags(Qt.ItemFlag.NoItemFlags)
         gym_list.addItem(placeholder_item)
 
+        #list container
         gym_list_container = QWidget()
         gym_list_container_layout = QVBoxLayout(gym_list_container)
         gym_list_container_layout.setContentsMargins(40, 5, 40, 5)
         gym_list_container_layout.addWidget(gym_list)
 
+
         self.parent.gym_list_box = gym_list
         self.parent.gym_list_container = gym_list_container
         self.parent.placeholder_text = placeholder_text
+
 
     def setup_bottom_buttons(self):
         """Bottom buttons for additional functionality."""
@@ -137,25 +141,23 @@ class GymCompareSetup:
         layout = QHBoxLayout(bottom_buttons)
         layout.setSpacing(20)
     
-        #export
+        #export btn
         export_btn = QPushButton("Export")
         export_btn.setObjectName("exportButton")
         export_btn.setFixedWidth(150)
+        layout.addWidget(export_btn)
         
-        #view on map
+        #view on map btn
         view_btn = QPushButton("View on Map")
         view_btn.setObjectName("viewMapButton")
         view_btn.setFixedWidth(150)
-
-        layout.addWidget(export_btn)
         layout.addWidget(view_btn)
 
-        #clear
+        #clear btn
         clear_btn = QPushButton("Clear")
         clear_btn.setObjectName("clearButton")
         layout.addStretch()
         clear_btn.clicked.connect(self.parent.clear)
-        
         layout.addWidget(clear_btn)
 
         self.parent.bottom_buttons = bottom_buttons

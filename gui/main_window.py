@@ -13,7 +13,7 @@ class GymCompare(QMainWindow):
         self.setup = GymCompareSetup(self)
 
     def mousePressEvent(self, event):
-        """Initiate window dragging if on header"""
+        """Initiate window dragging if on header of window"""
         if event.button() == Qt.MouseButton.LeftButton:
             widget = self.childAt(event.pos())
             # check if the click is within the header area and not the close button
@@ -39,6 +39,8 @@ class GymCompare(QMainWindow):
 
     def search(self, input_address):
         """Handle search button click."""
+
+        #empty input
         if input_address == "":
             dlg = emptyInputDialog(self)
             dlg.exec()
@@ -47,10 +49,10 @@ class GymCompare(QMainWindow):
         print(f"Searching for gyms near: {input_address}")
 
     def clear(self):
-        """Clear the gym list, restore placeholder text."""
+        """Clear the gym listbox, and restore placeholder text."""
         self.gym_list_box.clear()
 
-    
+        #placeholder restore
         item = QListWidgetItem(self.placeholder_text)
         item.setFlags(Qt.ItemFlag.NoItemFlags)
         self.gym_list_box.addItem(item)
