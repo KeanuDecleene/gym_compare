@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem
 from PyQt6.QtCore import Qt
 from gui.main_window_setup import GymCompareSetup
-from logic.custom_dialogs import emptyInputDialog
+from gui.custom_dialogs import emptyInputDialog
 import requests
 
 class GymCompare(QMainWindow):

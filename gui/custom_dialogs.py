@@ -12,7 +12,7 @@ class emptyInputDialog(QDialog):
         self.setWindowTitle("Empty Input")
         self.setFixedSize(300, 100)
 
-        with open("logic/dialog_styles.qss", "r") as style:
+        with open("gui/dialog_styles.qss", "r") as style:
             qss = style.read()
             self.setStyleSheet(qss)
         
