@@ -2,6 +2,8 @@ from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem
 from PyQt6.QtCore import Qt
 from gui.main_window_setup import GymCompareSetup
 from gui.components.custom_dialogs import emptyInputDialog
+
+from logic.address import Address
 import requests
 
 class GymCompare(QMainWindow):
@@ -46,6 +48,12 @@ class GymCompare(QMainWindow):
             dlg.exec()
             return
         
+        from logic.address import Address
+        location = Address.find_lat_lon(input_address)
+
+        print(f"Searching for gyms near: {input_address}")
+        print(location)
+    
         print(f"Searching for gyms near: {input_address}")
 
     def clear(self):

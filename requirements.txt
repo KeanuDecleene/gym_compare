@@ -2,3 +2,4 @@ PyQt6
 requests
 pyinstaller
 beautifulsoup4
+geopy
