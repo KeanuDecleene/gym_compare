@@ -145,13 +145,16 @@ class GymCompareSetup:
         export_btn = QPushButton("Export")
         export_btn.setObjectName("exportButton")
         export_btn.setFixedWidth(150)
+        export_btn.clicked.connect(self.parent.export)
         layout.addWidget(export_btn)
         
         #view on map btn
         view_btn = QPushButton("View on Map")
         view_btn.setObjectName("viewMapButton")
         view_btn.setFixedWidth(150)
+        view_btn.clicked.connect(self.parent.view_map)
         layout.addWidget(view_btn)
+
 
         #clear btn
         clear_btn = QPushButton("Clear")
@@ -159,6 +162,9 @@ class GymCompareSetup:
         layout.addStretch()
         clear_btn.clicked.connect(self.parent.clear)
         layout.addWidget(clear_btn)
+
+
+
 
         self.parent.bottom_buttons = bottom_buttons
 

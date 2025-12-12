@@ -66,4 +66,15 @@ class GymCompare(QMainWindow):
         self.gym_list_box.addItem(item)
 
 
+    def view_map(self):
+        """view the map of selected gym"""
+        print("viewing map")
+
+
+    def export(self):
+        """export the gyms in current order to pdf"""
+        print("exporting")
+
+
+
         
