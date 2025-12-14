@@ -2,6 +2,7 @@
 
 class Gym:
     def __init__(self, name, url, coords, address):
+        """intialize gym instance"""
         self.name = name
         self.url = url
         self.coords = coords

@@ -41,7 +41,6 @@ class GymCompare(QMainWindow):
 
     def search(self, input_address):
         """Handle search button click."""
-
         #empty input
         if input_address == "":
             dlg = emptyInputDialog(self)
@@ -56,6 +55,8 @@ class GymCompare(QMainWindow):
     
         print(f"Searching for gyms near: {input_address}")
 
+
+
     def clear(self):
         """Clear the gym listbox, and restore placeholder text."""
         self.gym_list_box.clear()
@@ -67,12 +68,12 @@ class GymCompare(QMainWindow):
 
 
     def view_map(self):
-        """view the map of selected gym"""
+        """view the map of selected gym from listbox"""
         print("viewing map")
 
 
     def export(self):
-        """export the gyms in current order to pdf"""
+        """export the gym in current order to a pdf """
         print("exporting")
 
 

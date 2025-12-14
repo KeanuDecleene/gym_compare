@@ -1,0 +1,1 @@
+"""scraper module to get gym data from web pages"""
