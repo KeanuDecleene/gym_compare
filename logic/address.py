@@ -1,3 +1,4 @@
+"""give latitude and longitude from an address"""
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 

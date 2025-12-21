@@ -1,11 +1,28 @@
-from address import Address
+from logic.address import Address
+from logic.scraping.scraper import fetch_gyms
 
-class gymPipeline():
+class GymPipeline:
+    """fetching gyms and computing distances."""
 
-    def run(self, address):
-        """run the pipeline to get gym data from address"""
-        coords = Address.find_lat_lon(address)
+    def run(self, address_str):
+        origin_lat, origin_lon = Address.find_lat_lon(address_str)
+
+        if origin_lat is None:
+            return []
+
+        gyms = fetch_gyms(origin_lat, origin_lon)
+        for gym in gyms:
+            gym.calculate_distance(origin_lat, origin_lon)
+
+        #sort by distance
+        gyms.sort(key=lambda g: g.distance_km)
+
+        return gyms
+
+
+
         
+
 
 
 
