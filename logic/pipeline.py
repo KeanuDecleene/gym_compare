@@ -3,6 +3,9 @@ from logic.scraping.scraper import fetch_gyms
 
 class GymPipeline:
     """fetching gyms and computing distances."""
+    def __init__(self, limit=10):
+        """initialize the gym pipeline with a limit on number of gyms."""
+        self.limit = limit
 
     def run(self, address_str):
         origin_lat, origin_lon = Address.find_lat_lon(address_str)
@@ -17,7 +20,9 @@ class GymPipeline:
         #sort by distance
         gyms.sort(key=lambda g: g.distance_km)
 
-        return gyms
+        #TODO implement more filtering need to add ui for this first)
+
+        return gyms[:self.limit] 
 
 
 
