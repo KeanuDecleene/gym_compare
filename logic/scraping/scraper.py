@@ -19,6 +19,9 @@ def fetch_gyms(lat, lon, radius=3000):
 
 
     response = requests.post(API_URL, data=query)
+    print("Status code:", response.status_code)
+    print("Response text:", response.text[:300]) 
+    response.raise_for_status() 
     data = response.json()
 
     #creating gyms list from the response data 

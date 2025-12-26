@@ -32,6 +32,18 @@
   padding: 8px;
 }
 
+#gymListBox QWidget#gymRow {
+  background: transparent;
+}
+
+#gymListBox QLabel {
+  color: #e6e6e6;
+}
+
+#gymListBox QLabel#gymDistance {
+  color: #9fd37a;
+}
+
 #addressBarContainer {
   background-color: #3a3a3a;
 }

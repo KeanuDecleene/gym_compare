@@ -1,5 +1,5 @@
-from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem, QWidget, QHBoxLayout, QLabel
+from PyQt6.QtCore import Qt, QSize
 from gui.main_window_setup import GymCompareSetup
 from gui.components.custom_dialogs import emptyInputDialog
 
@@ -61,17 +61,84 @@ class GymCompare(QMainWindow):
             self.gym_list_box.addItem(item)
             return
 
+        #set up list box for results
         self.gym_list_box.clear()
+        self.add_gym_list_header()
+
         #populate listbox with gyms data
         for gym in gyms:
-            #TODO FORMATTING THE LIST BOX BETTER AND ADDING A HEADER
-            text =  (f"{gym.name} {gym.address} {gym.distance_km:.2f} km away")
-            item = QListWidgetItem(text)
+            item = QListWidgetItem()
+            item.setSizeHint(QSize(0, 32))
             item.setData(Qt.ItemDataRole.UserRole, gym)
+
+            widget = self.create_gym_list_item(gym)
+
             self.gym_list_box.addItem(item)
+            self.gym_list_box.setItemWidget(item, widget)
 
+    def create_gym_list_item(self, gym):
+        """create a custom widget for a gym list item."""
+        widget = QWidget()
+        widget.setObjectName("gymRow")
+        widget.setStyleSheet("background: transparent;")
 
+        layout = QHBoxLayout(widget)
+        layout.setContentsMargins(10, 6, 10, 6)
+        layout.setSpacing(16)
 
+        name = QLabel(gym.name)
+        name.setObjectName("gymName")
+
+        address = QLabel(gym.address)
+        address.setObjectName("gymAddress")
+
+        distance = QLabel(f"{gym.distance_km:.2f} km")
+        distance.setObjectName("gymDistance")
+
+        name.setFixedWidth(180)
+        address.setFixedWidth(360)
+        distance.setFixedWidth(90)
+
+        distance.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+
+        layout.addWidget(name)
+        layout.addWidget(address)
+        layout.addWidget(distance)
+
+        return widget
+    
+    def add_gym_list_header(self):
+        """add header row to gym listbox."""
+        header_widget = QWidget()
+        header_widget.setObjectName("gymHeader")
+
+        layout = QHBoxLayout(header_widget)
+        layout.setContentsMargins(10, 6, 10, 6)
+        layout.setSpacing(16)
+
+        name = QLabel("Gym:")
+        address = QLabel("Address:")
+        distance = QLabel("Distance:")
+
+        name.setFixedWidth(180)
+        address.setFixedWidth(360)
+        distance.setFixedWidth(90)
+
+        distance.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+
+        for label in (name, address, distance):
+            label.setStyleSheet("color: white;")
+
+        layout.addWidget(name)
+        layout.addWidget(address)
+        layout.addWidget(distance)
+
+        item = QListWidgetItem()
+        item.setFlags(Qt.ItemFlag.NoItemFlags)
+        item.setSizeHint(header_widget.sizeHint())
+
+        self.gym_list_box.addItem(item)
+        self.gym_list_box.setItemWidget(item, header_widget)
 
     def clear(self):
         """clear the gym listbox, and restore placeholder text."""
