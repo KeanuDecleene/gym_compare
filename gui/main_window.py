@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem, QWidget, QHBoxLayout, QLabel
 from PyQt6.QtCore import Qt, QSize
 from gui.main_window_setup import GymCompareSetup
-from gui.components.custom_dialogs import emptyInputDialog
+from gui.components.custom_dialogs import EmptyInputDialog, OverpassTimeoutDialog
 
 
 from logic.address import Address
@@ -46,19 +46,25 @@ class GymCompare(QMainWindow):
         """handle search button click."""
         #empty input dialog handler
         if input_address == "":
-            dlg = emptyInputDialog(self)
+            dlg = EmptyInputDialog(self)
             dlg.exec()
             return
         
         #run the gym pipeline
         pipeline = GymPipeline()
-        gyms = pipeline.run(input_address)
+        try:
+            gyms = pipeline.run(input_address)
+        
+        except requests.exceptions.Timeout:
+            dlg = OverpassTimeoutDialog(self)
+            result = dlg.exec()
+            if result == QDialog.DialogCode.Accepted:
+                self.search(input_address)  #retry search
+            return
 
-        if not gyms:
-            #TODO add a dialog box to inform no gyms found
-            item = QListWidgetItem("No gyms found.")
-            item.setFlags(Qt.ItemFlag.NoItemFlags)
-            self.gym_list_box.addItem(item)
+        except requests.esceptions.HTTPError:
+            dlg = OverpassTimeoutDialog(self)
+            dlg.exec()
             return
 
         #set up list box for results

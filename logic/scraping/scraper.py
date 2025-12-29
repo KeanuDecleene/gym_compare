@@ -2,7 +2,7 @@
 import requests
 from logic.gym_model import Gym
 
-API_URL = "http://overpass-api.de/api/interpreter"
+API_URL = "https://overpass.kumi.systems/api/interpreter" #overpass mirror
 
 def fetch_gyms(lat, lon, radius=3000):
     """fetch gyms near lat/lon."""
@@ -18,9 +18,7 @@ def fetch_gyms(lat, lon, radius=3000):
     """
 
 
-    response = requests.post(API_URL, data=query)
-    print("Status code:", response.status_code)
-    print("Response text:", response.text[:300]) 
+    response = requests.post(API_URL, data=query timeout=20)
     response.raise_for_status() 
     data = response.json()
 
