@@ -18,7 +18,7 @@ def fetch_gyms(lat, lon, radius=3000):
     """
 
 
-    response = requests.post(API_URL, data=query timeout=20)
+    response = requests.post(API_URL, data=query, timeout=20)
     response.raise_for_status() 
     data = response.json()
 
@@ -29,11 +29,11 @@ def fetch_gyms(lat, lon, radius=3000):
         address = el["tags"].get("addr:street", "Unknown address")
 
         if "lat" in el:
+
             g_lat, g_lon = el["lat"], el["lon"]
         else:
             g_lat, g_lon = el["center"]["lat"], el["center"]["lon"]
 
-        #append new Gym instance
         gyms.append(Gym(name, address, g_lat, g_lon))
 
     return gyms

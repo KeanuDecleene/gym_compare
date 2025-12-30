@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem, QWidget, QHBoxLayout, QLabel
 from PyQt6.QtCore import Qt, QSize
 from gui.main_window_setup import GymCompareSetup
-from gui.components.custom_dialogs import EmptyInputDialog, OverpassTimeoutDialog
+from gui.components.custom_dialogs import EmptyInputDialog, OverpassTimeoutDialog, NoGymsFoundDialog
 
 
 from logic.address import Address
@@ -64,6 +64,11 @@ class GymCompare(QMainWindow):
 
         except requests.esceptions.HTTPError:
             dlg = OverpassTimeoutDialog(self)
+            dlg.exec()
+            return
+        
+        if len(gyms) == 0: #no gyms found dialog
+            dlg = NoGymsFoundDialog(self)
             dlg.exec()
             return
 

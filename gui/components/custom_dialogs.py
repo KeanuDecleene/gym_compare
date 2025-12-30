@@ -26,6 +26,27 @@ class EmptyInputDialog(QDialog):
         
         self.setLayout(layout)
 
+class NoGymsFoundDialog(QDialog):
+    """Dialog shown when no gyms are found near the given address."""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("No Gyms Found")
+        self.setFixedSize(300, 100)
+
+        with open("gui/components/dialog_styles.qss", "r") as style:
+            qss = style.read()
+            self.setStyleSheet(qss)
+        
+        layout = QVBoxLayout()
+        message = QLabel("No gyms were found near the provided address.")
+        layout.addWidget(message)
+        
+        button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok)
+        button_box.accepted.connect(self.accept)
+        layout.addWidget(button_box)
+        
+        self.setLayout(layout)
+
 class OverpassTimeoutDialog(QDialog):
     """Dialog shown when Overpass API times out."""
     def __init__(self, parent=None):
