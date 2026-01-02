@@ -106,15 +106,20 @@ class GymCompare(QMainWindow):
         distance = QLabel(f"{gym.distance_km:.2f} km")
         distance.setObjectName("gymDistance")
 
+        price = QLabel(gym.price_per_week or "N/A")
+        price.setObjectName("gymPrice")
+        
         name.setFixedWidth(180)
         address.setFixedWidth(360)
         distance.setFixedWidth(90)
+        price.setFixedWidth(90)
 
         distance.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
         layout.addWidget(name)
         layout.addWidget(address)
         layout.addWidget(distance)
+        layout.addWidget(price)
 
         return widget
     
@@ -130,19 +135,22 @@ class GymCompare(QMainWindow):
         name = QLabel("Gym:")
         address = QLabel("Address:")
         distance = QLabel("Distance:")
+        price = QLabel("Price:")
 
         name.setFixedWidth(180)
         address.setFixedWidth(360)
         distance.setFixedWidth(90)
+        price.setFixedWidth(90)
 
         distance.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
-        for label in (name, address, distance):
+        for label in (name, address, distance, price):
             label.setStyleSheet("color: white;")
 
         layout.addWidget(name)
         layout.addWidget(address)
         layout.addWidget(distance)
+        layout.addWidget(price)
 
         item = QListWidgetItem()
         item.setFlags(Qt.ItemFlag.NoItemFlags)

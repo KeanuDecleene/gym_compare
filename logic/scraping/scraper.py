@@ -25,11 +25,18 @@ def fetch_gyms(lat, lon, radius=3000):
     #creating gyms list from the response data 
     gyms = []
     for el in data["elements"]:
+        tags = el.get("tags", {})
         name = el["tags"].get("name", "Unknown Gym")
         address = el["tags"].get("addr:street", "Unknown address")
 
-        if "lat" in el:
+        #website url tags
+        website = (
+            tags.get("website")
+            or tags.get("contact:website")
+            or tags.get("url")
+        )
 
+        if "lat" in el:
             g_lat, g_lon = el["lat"], el["lon"]
         else:
             g_lat, g_lon = el["center"]["lat"], el["center"]["lon"]

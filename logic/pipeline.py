@@ -1,5 +1,6 @@
 from logic.address import Address
 from logic.scraping.scraper import fetch_gyms
+from logic.scraping.price_scraping import scrape_price_per_week
 
 class GymPipeline:
     """fetching gyms and computing distances."""
@@ -14,8 +15,10 @@ class GymPipeline:
             return []
 
         gyms = fetch_gyms(origin_lat, origin_lon)
+
         for gym in gyms:
             gym.calculate_distance(origin_lat, origin_lon)
+            gym.price_per_week = scrape_price_per_week(gym.url)
 
         #sort by distance
         gyms.sort(key=lambda g: g.distance_km)
