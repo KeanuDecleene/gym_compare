@@ -11,12 +11,18 @@ def scrape_price_per_week(url: str) -> str:
     if not url:
         return "N/A"
 
+    if not url.startswith("http"):
+        url = "https://" + url
+
     try:
-        response = requests.get(url, timeout=10, headers={
-            "User-Agent": "Mozilla/5.0"
-        })
+        response = requests.get(
+            url,
+            timeout=10,
+            headers={"User-Agent": "Mozilla/5.0"}
+        )
         response.raise_for_status()
-    except requests.RequestException:
+    except requests.exceptions.RequestException as e:
+        print(f"[PRICE SCRAPER ERROR] {url} -> {e}")
         return "N/A"
 
     soup = BeautifulSoup(response.text, "html.parser")

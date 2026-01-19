@@ -41,6 +41,12 @@ def fetch_gyms(lat, lon, radius=3000):
         else:
             g_lat, g_lon = el["center"]["lat"], el["center"]["lon"]
 
-        gyms.append(Gym(name, address, g_lat, g_lon))
+        gyms.append(Gym(
+    name=name,
+    address=address,
+    lat=g_lat,
+    lon=g_lon,
+    url=website
+))
 
     return gyms

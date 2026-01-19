@@ -62,7 +62,7 @@ class GymCompare(QMainWindow):
                 self.search(input_address)  #retry search
             return
 
-        except requests.esceptions.HTTPError:
+        except requests.exceptions.HTTPError:
             dlg = OverpassTimeoutDialog(self)
             dlg.exec()
             return
