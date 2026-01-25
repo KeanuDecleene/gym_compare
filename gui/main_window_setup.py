@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QIcon, QPixmap
+from gui.utils import resource_path
 
 
 class GymCompareSetup:
@@ -56,7 +57,9 @@ class GymCompareSetup:
 
         #icon
         icon = QLabel()
-        pix = QPixmap("gui/icons/gym_compare.png")
+
+        icon_path = resource_path("gui/icons/gym_compare.png")
+        pix = QPixmap(icon_path)
         pix = pix.scaled(29, 29, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
         icon.setPixmap(pix)
         icon.setFixedSize(29, 29)
@@ -72,7 +75,8 @@ class GymCompareSetup:
         close_btn = QPushButton()
         close_btn.setObjectName("headerClose")
         close_btn.setFixedSize(28, 28)
-        close_btn.setIcon(QIcon("gui/icons/close_button.png"))
+        close_btn_path = resource_path("gui/icons/close_button.png")   
+        close_btn.setIcon(QIcon(close_btn_path))
         close_btn.setIconSize(QSize(15, 15))
         close_btn.clicked.connect(self.parent.close)
         layout.addWidget(close_btn)
