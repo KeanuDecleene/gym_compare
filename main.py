@@ -4,6 +4,7 @@ from gui.main_window import GymCompare
 from gui.utils import resource_path
 
 def main():
+    """main entry point for the application."""
     app = QApplication(sys.argv)
 
     qss_path = resource_path("gui/styles.qss")
