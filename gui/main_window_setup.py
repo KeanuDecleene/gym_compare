@@ -120,7 +120,7 @@ class GymCompareSetup:
         gym_list.setObjectName("gymListBox")
 
         #placeholder
-        placeholder_text = QListWidgetItem("Please enter an address and click 'Search'.")
+        placeholder_text = "Please enter an address and click 'Search'."
         placeholder_item = QListWidgetItem(placeholder_text)
         placeholder_item.setFlags(Qt.ItemFlag.NoItemFlags)
         gym_list.addItem(placeholder_item)

@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QMainWindow, QDialog, QListWidgetItem, QWidget, QHBoxLayout, QLabel
-from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtCore import QThread, Qt, QSize
 from gui.main_window_setup import GymCompareSetup
 from gui.components.custom_dialogs import EmptyInputDialog, OverpassTimeoutDialog, NoGymsFoundDialog
 
@@ -7,6 +7,8 @@ from gui.components.custom_dialogs import EmptyInputDialog, OverpassTimeoutDialo
 from logic.address import Address
 from logic.pipeline import GymPipeline
 import requests
+
+from logic.search_worker import SearchWorker
 
 
 class GymCompare(QMainWindow):
@@ -43,38 +45,73 @@ class GymCompare(QMainWindow):
         return super().mouseReleaseEvent(event)
 
     def search(self, input_address):
-        """handle search button click."""
-        #empty input dialog handler
-        if input_address == "":
+        if input_address.strip() == "":
             dlg = EmptyInputDialog(self)
             dlg.exec()
             return
-        
-        #run the gym pipeline
-        pipeline = GymPipeline()
-        try:
-            gyms = pipeline.run(input_address)
-        
-        except requests.exceptions.Timeout:
-            dlg = OverpassTimeoutDialog(self)
-            result = dlg.exec()
-            if result == QDialog.DialogCode.Accepted:
-                self.search(input_address)  #retry search
-            return
 
-        except requests.exceptions.HTTPError:
-            dlg = OverpassTimeoutDialog(self)
-            dlg.exec()
-            return
-        
-        if len(gyms) == 0: #no gyms found dialog
+        self.search_btn.setEnabled(False)
+        self.search_btn.setText("Searching...")
+
+        self.thread = QThread()
+        self.worker = SearchWorker(input_address)
+
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.handle_search_results)
+        self.worker.error.connect(self.handle_search_error)
+
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.error.connect(self.thread.quit)
+
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.worker.error.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+
+        self.thread.start()
+
+    def handle_search_results(self, gyms):
+        self.search_btn.setEnabled(True)
+        self.search_btn.setText("Search")
+
+        if len(gyms) == 0:
             dlg = NoGymsFoundDialog(self)
             dlg.exec()
             return
 
-        #set up list box for results
         self.gym_list_box.clear()
         self.add_gym_list_header()
+
+        for gym in gyms:
+            item = QListWidgetItem()
+            item.setSizeHint(QSize(0, 32))
+            item.setData(Qt.ItemDataRole.UserRole, gym)
+
+            widget = self.create_gym_list_item(gym)
+
+            self.gym_list_box.addItem(item)
+            self.gym_list_box.setItemWidget(item, widget)
+
+
+
+
+    def handle_search_error(self, error_type):
+        self.search_btn.setEnabled(True)
+        self.search_btn.setText("Search")
+
+        if error_type == "timeout":
+            dlg = OverpassTimeoutDialog(self)
+            result = dlg.exec()
+            if result == QDialog.DialogCode.Accepted:
+                self.search(self.address_bar.text())
+            return
+
+        if error_type == "http":
+            dlg = OverpassTimeoutDialog(self)
+            dlg.exec()
+            return
+
+        print(f"Unexpected error: {error_type}")
 
         #populate listbox with gyms data
         for gym in gyms:

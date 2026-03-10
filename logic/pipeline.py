@@ -11,21 +11,21 @@ class GymPipeline:
     def run(self, address_str):
         origin_lat, origin_lon = Address.find_lat_lon(address_str)
 
-        if origin_lat is None:
+        if origin_lat is None or origin_lon is None:
             return []
 
         gyms = fetch_gyms(origin_lat, origin_lon)
 
         for gym in gyms:
             gym.calculate_distance(origin_lat, origin_lon)
+
+        gyms.sort(key=lambda g: g.distance_km)
+        gyms = gyms[:self.limit]
+
+        for gym in gyms:
             gym.price_per_week = scrape_price_per_week(gym.url)
 
-        #sort by distance
-        gyms.sort(key=lambda g: g.distance_km)
-
-        #TODO implement more filtering need to add ui for this first)
-
-        return gyms[:self.limit] 
+        return gyms
 
 
 
