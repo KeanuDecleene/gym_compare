@@ -60,8 +60,8 @@ class OverpassTimeoutDialog(QDialog):
         layout = QVBoxLayout()
 
         message = QLabel(
-            "The map service is taking too long to respond.\n\n"
-            "This is usually temporary.\nWould you like to try again?"
+            "overpass API is taking too long to respond.\n" \
+            "do you want to retry?"
         )
         message.setAlignment(Qt.AlignmentFlag.AlignCenter)
         message.setWordWrap(True)
