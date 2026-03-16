@@ -145,6 +145,9 @@ class GymCompare(QMainWindow):
 
         price = QLabel(gym.price_per_week or "N/A")
         price.setObjectName("gymPrice")
+
+        latitiude = gym.latitude
+        longitude = gym.longitude
         
         name.setFixedWidth(180)
         address.setFixedWidth(360)
@@ -208,7 +211,17 @@ class GymCompare(QMainWindow):
 
     def view_map(self):
         """view the map of selected gym from listbox"""
-        print("viewing map")
+        item = self.gym_list_box.currentItem()
+        if not item or not item.data(Qt.ItemDataRole.UserRole):
+            return
+        item.latitude = item.data(Qt.ItemDataRole.UserRole).latitude
+        item.longitude = item.data(Qt.ItemDataRole.UserRole).longitude
+
+
+
+        print("viewing map" + str(item.latitude) + " " + str(item.longitude))
+
+
 
         #TODO select gym function and be able to press the view map button to open gym in browser on maps
 
