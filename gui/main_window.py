@@ -7,6 +7,7 @@ from gui.components.custom_dialogs import EmptyInputDialog, OverpassTimeoutDialo
 from logic.address import Address
 from logic.pipeline import GymPipeline
 import requests
+import webbrowser
 
 from logic.search_worker import SearchWorker
 
@@ -113,17 +114,6 @@ class GymCompare(QMainWindow):
 
         print(f"Unexpected error: {error_type}")
 
-        #populate listbox with gyms data
-        for gym in gyms:
-            item = QListWidgetItem()
-            item.setSizeHint(QSize(0, 32))
-            item.setData(Qt.ItemDataRole.UserRole, gym)
-
-            widget = self.create_gym_list_item(gym)
-
-            self.gym_list_box.addItem(item)
-            self.gym_list_box.setItemWidget(item, widget)
-
     def create_gym_list_item(self, gym):
         """create a custom widget for a gym list item."""
         widget = QWidget()
@@ -145,9 +135,6 @@ class GymCompare(QMainWindow):
 
         price = QLabel(gym.price_per_week or "N/A")
         price.setObjectName("gymPrice")
-
-        latitiude = gym.latitude
-        longitude = gym.longitude
         
         name.setFixedWidth(180)
         address.setFixedWidth(360)
@@ -212,14 +199,20 @@ class GymCompare(QMainWindow):
     def view_map(self):
         """view the map of selected gym from listbox"""
         item = self.gym_list_box.currentItem()
-        if not item or not item.data(Qt.ItemDataRole.UserRole):
+        if not item:
             return
-        item.latitude = item.data(Qt.ItemDataRole.UserRole).latitude
-        item.longitude = item.data(Qt.ItemDataRole.UserRole).longitude
 
+        gym = item.data(Qt.ItemDataRole.UserRole)
+        if not gym:
+            return
 
+        lat = getattr(gym, "latitude", None)
+        lon = getattr(gym, "longitude", None)
 
-        print("viewing map" + str(item.latitude) + " " + str(item.longitude))
+        if lat is None or lon is None:
+            return
+
+        webbrowser.open(f"https://www.google.com/maps/search/?api=1&query={lat},{lon}")
 
 
 
